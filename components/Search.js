@@ -69,9 +69,15 @@ class Search extends React.Component {
       this._loadFilms(); // on lance la recherche lorsque le setState est terminé
     });
   }
+
+  _displayDetailForFilm = (idFilm) => {
+    console.log(`Display film with id ${idFilm}`);
+    this.props.navigation.navigate("Detail");
+  };
   render() {
     console.log("RENDER");
     console.log(this.state.isLoading);
+    console.log("props", this.props);
     return (
       <View style={styles.main_container}>
         <TextInput
@@ -100,7 +106,12 @@ class Search extends React.Component {
           }}
           data={this.state.films}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <FilmItem film={item} />}
+          renderItem={({ item }) => (
+            <FilmItem
+              film={item}
+              displayDetailForFilm={this._displayDetailForFilm}
+            />
+          )}
         />
         {this._displayLoading()}
       </View>
